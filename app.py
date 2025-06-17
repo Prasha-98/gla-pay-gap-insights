@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
+st.set_page_config(layout="wide", page_title="GLA Pay-Gap Insights")
 # ───────────────────────────────────────────
 # 1.  Helpers to locate and parse each block
 # ───────────────────────────────────────────
@@ -162,12 +163,6 @@ def forecast(df: pd.DataFrame) -> pd.Series:
         reg = LinearRegression().fit(X[mask], y[mask])
         preds[col] = reg.predict([[next_year]])[0]
     return pd.Series(preds, name=next_year)
-
-# ───────────────────────────────────────────
-# 4.  Streamlit UI
-# ───────────────────────────────────────────
-st.set_page_config(layout="wide")
-st.title("GLA Pay Gap — Deep-Dive Dashboard")
 
 dataset = st.sidebar.selectbox("Dataset", ["Disability", "Gender", "Ethnicity"])
 metric  = st.sidebar.radio("Metric", ["Hourly Pay", "Pay Gap"])
